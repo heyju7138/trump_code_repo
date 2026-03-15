@@ -42,10 +42,26 @@ RT_PREDICTIONS_FILE = DATA / "rt_predictions.json"      # 即時預測紀錄
 RT_LEARNING_FILE = DATA / "rt_learning.json"             # 即時學習結果
 POLL_INTERVAL = 300  # 5 分鐘
 
-# === 重大波動門檻 — 小波動是噪音，只學大的 ===
-PM_SIGNIFICANT_MOVE = 0.03    # Polymarket ±3¢ 以上才算「動了」
-SPY_SIGNIFICANT_MOVE = 0.5    # SPY ±0.5% 以上才算「動了」
-# 低於門檻的 = 噪音，不納入學習統計，避免污染模型
+# === 事件門檻 — 從歷史數據計算（288 個交易日的統計）===
+# 平均日波動 ±0.71%，標準差 0.88%
+# 「事件」= 超過 95th 百分位 = 大約 ±2% 以上（一年只有 ~15 天）
+# 「有感」= 超過 75th 百分位 = 大約 ±0.8% 以上
+# 「噪音」= 低於中位數 = ±0.5% 以下
+
+# 股市（SPY）
+SPY_EVENT = 2.0         # ±2% 以上 = 大事（一年 ~15 天）
+SPY_NOTABLE = 0.8       # ±0.8% 以上 = 有感波動（追蹤但權重低）
+SPY_NOISE = 0.5         # ±0.5% 以下 = 噪音（不學）
+
+# 預測市場（Polymarket）
+PM_EVENT = 0.10         # ±10¢ 以上 = 大事（市場共識方向改變）
+PM_NOTABLE = 0.05       # ±5¢ 以上 = 有感
+PM_NOISE = 0.03         # ±3¢ 以下 = 噪音
+
+# 學習權重：大事的經驗值 10 倍，有感的 3 倍，噪音的 0 倍
+EVENT_WEIGHT = 10
+NOTABLE_WEIGHT = 3
+NOISE_WEIGHT = 0
 
 
 def log(msg: str) -> None:
@@ -459,41 +475,56 @@ def verify_predictions() -> dict[str, Any]:
             except Exception:
                 pass
 
-        # 判斷是不是「重大波動」— 小的不學
-        pm_significant = abs(avg_pm_change) >= PM_SIGNIFICANT_MOVE
-        spy_change_val = pred.get('spy_verify_1h') or pred.get('spy_verify_3h') or 0
-        spy_significant = abs(spy_change_val) >= SPY_SIGNIFICANT_MOVE
-        any_significant = pm_significant or spy_significant
+        # === 事件分級 ===
+        spy_move = abs(pred.get('spy_verify_1h') or pred.get('spy_verify_3h') or 0)
+        pm_move = abs(avg_pm_change)
 
-        pred['pm_significant'] = pm_significant
-        pred['spy_significant'] = spy_significant
+        if pm_move >= PM_EVENT or spy_move >= SPY_EVENT:
+            event_level = 'EVENT'       # 大事！一年只有十幾天
+            learn_weight = EVENT_WEIGHT
+        elif pm_move >= PM_NOTABLE or spy_move >= SPY_NOTABLE:
+            event_level = 'NOTABLE'     # 有感波動
+            learn_weight = NOTABLE_WEIGHT
+        else:
+            event_level = 'NOISE'       # 噪音
+            learn_weight = NOISE_WEIGHT
 
-        # 6h 後標為 VERIFIED
+        pred['event_level'] = event_level
+        pred['learn_weight'] = learn_weight
+        pred['pm_move'] = round(pm_move, 4)
+        pred['spy_move'] = round(spy_move, 3)
+
+        # 6h 後標記
         if hours_elapsed >= 6:
             pred['pm_verify_6h'] = round(avg_pm_change, 4)
 
-            if any_significant:
-                # 重大波動 → 正式驗證，納入學習
+            if event_level == 'NOISE':
+                pred['status'] = 'NOISE'
+            else:
                 pred['status'] = 'VERIFIED'
                 verified_count += 1
                 if pred.get('pm_correct_1h'):
                     correct_1h += 1
                 if pred.get('pm_correct_3h'):
                     correct_3h += 1
-            else:
-                # 小波動 → 標記但不納入學習
-                pred['status'] = 'NOISE'
+
+                if event_level == 'EVENT':
+                    log(f"   🔴 大事！{pred['post_preview'][:50]}...")
+                    log(f"      PM {avg_pm_change:+.2%} | SPY {spy_move:+.2f}% | "
+                        f"預測 {'✅' if pred.get('pm_correct_3h') else '❌'}")
 
     # 存檔
     with open(RT_PREDICTIONS_FILE, 'w', encoding='utf-8') as f:
         json.dump(predictions, f, ensure_ascii=False, indent=2)
 
     # 學習：累積統計
-    all_verified = [p for p in predictions if p.get('status') == 'VERIFIED']  # 只有重大波動
+    all_verified = [p for p in predictions if p.get('status') == 'VERIFIED']
+    all_events = [p for p in all_verified if p.get('event_level') == 'EVENT']
+    all_notable = [p for p in all_verified if p.get('event_level') == 'NOTABLE']
     all_noise = [p for p in predictions if p.get('status') == 'NOISE']
     if all_verified:
         total = len(all_verified)
-        log(f"   📊 重大波動: {total} 筆 | 噪音（忽略）: {len(all_noise)} 筆")
+        log(f"   📊 大事: {len(all_events)} | 有感: {len(all_notable)} | 噪音: {len(all_noise)}（忽略）")
         c1 = sum(1 for p in all_verified if p.get('direction_correct_1h'))
         c3 = sum(1 for p in all_verified if p.get('direction_correct_3h'))
 
@@ -502,13 +533,24 @@ def verify_predictions() -> dict[str, Any]:
         spy_c3 = sum(1 for p in all_verified if p.get('spy_correct_3h'))
         divergences = sum(1 for p in all_verified if p.get('pm_vs_stock_divergence'))
 
+        # 大事的命中率（最重要！）
+        event_c1 = sum(1 for p in all_events if p.get('pm_correct_1h'))
+        event_c3 = sum(1 for p in all_events if p.get('pm_correct_3h'))
+
         learning = {
             'updated_at': now_str(),
             'total_verified': total,
+            'total_events': len(all_events),
+            'total_notable': len(all_notable),
+            'total_noise': len(all_noise),
 
-            # 預測市場命中率
-            'pm_hit_rate_1h': round(c1 / total * 100, 1),
-            'pm_hit_rate_3h': round(c3 / total * 100, 1),
+            # 大事的命中率（最重要！系統的真正實力）
+            'event_pm_hit_1h': round(event_c1 / len(all_events) * 100, 1) if all_events else 0,
+            'event_pm_hit_3h': round(event_c3 / len(all_events) * 100, 1) if all_events else 0,
+
+            # 全部（含有感）的命中率
+            'all_pm_hit_1h': round(c1 / total * 100, 1),
+            'all_pm_hit_3h': round(c3 / total * 100, 1),
 
             # 美股命中率
             'spy_hit_rate_1h': round(spy_c1 / total * 100, 1),
@@ -524,6 +566,10 @@ def verify_predictions() -> dict[str, Any]:
 
             'by_signal': _stats_by_signal(all_verified),
         }
+
+        if all_events:
+            log(f"   🔴 大事命中率: PM {learning['event_pm_hit_1h']:.0f}%(1h) "
+                f"{learning['event_pm_hit_3h']:.0f}%(3h) | {len(all_events)} 筆")
 
         with open(RT_LEARNING_FILE, 'w', encoding='utf-8') as f:
             json.dump(learning, f, ensure_ascii=False, indent=2)
