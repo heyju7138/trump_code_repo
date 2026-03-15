@@ -231,20 +231,64 @@ Daily automated pipeline on our VPS (Mon-Fri, post US market close):
 
 **全て公開。フォークして、改善して、間違いを証明してほしい。**
 
-### Files
+### Raw Data — 40 datasets, fully open | 40 組原始資料，完全公開 | 40データセット完全公開
 
-| File | Description | 說明 | 説明 |
-|------|-------------|------|------|
-| [`data/daily_report.json`](data/daily_report.json) | Today's signals (trilingual) | 今日信號（三語） | 本日のシグナル（3カ国語） |
-| [`data/surviving_rules.json`](data/surviving_rules.json) | All 50,872 model rules | 全部存活規則 | 全生存ルール |
-| [`data/big_moves.json`](data/big_moves.json) | >1% move analysis | 大波動分析 | 大幅変動分析 |
-| [`data/report_history.json`](data/report_history.json) | Historical daily reports | 歷史報告 | 過去のレポート |
-| [`data/scoreboard.json`](data/scoreboard.json) | Model hit rates | 模型命中率 | モデル的中率 |
-| [`data/deletions.json`](data/deletions.json) | Deleted posts log | 刪文記錄 | 削除投稿ログ |
-| [`data/source_check_report.json`](data/source_check_report.json) | 3-source cross-check | 三源比對報告 | 3ソース照合レポート |
-| [`data/own_archive.json`](data/own_archive.json) | Self-hosted full archive | 自建完整資料庫 | 自前アーカイブ |
-| [`data/verify_report.json`](data/verify_report.json) | Archive vs CNN verification | 資料庫驗證報告 | アーカイブ検証 |
-| [`data/results_*.json`](data/) | All 12 analysis results | 12 項分析結果 | 12分析の結果 |
+All data is public information scraped from public sources. Use it freely.
+**Updated automatically every trading day** — new posts, new market data, new predictions.
+
+全部是公開資料，你拿去算，算出什麼新東西就發 PR。
+**每個交易日自動更新**——新推文、新股市資料、新預測結果。
+
+全て公開情報。自由に分析してほしい。
+**毎営業日自動更新**——新しい投稿、市場データ、予測結果。
+
+#### 📡 Source Data | 原始資料 | ソースデータ
+
+| File | Description | Records |
+|------|-------------|---------|
+| [`data/x_posts_full.json`](data/x_posts_full.json) | **Trump's X (Twitter) posts — full 2nd term** | 168 posts |
+| [`data/market_SP500.json`](data/market_SP500.json) | S&P 500 daily OHLCV | 289 trading days |
+| [`data/market_NASDAQ.json`](data/market_NASDAQ.json) | NASDAQ daily OHLCV | 289 trading days |
+| [`data/market_DOW.json`](data/market_DOW.json) | Dow Jones daily OHLCV | 289 trading days |
+| [`data/market_VIX.json`](data/market_VIX.json) | VIX volatility index | 289 trading days |
+| [`data/daily_features.json`](data/daily_features.json) | 316 binary features per day | 414 days |
+| [`data/source_check_report.json`](data/source_check_report.json) | Multi-source cross-check report | daily |
+
+#### 🔐 Analysis Results | 分析結果 | 分析結果
+
+| File | Description |
+|------|-------------|
+| [`data/results_01_caps.json`](data/results_01_caps.json) | CAPS code analysis — deliberate capitalization patterns |
+| [`data/results_02_timing.json`](data/results_02_timing.json) | Posting time patterns — hourly, daily, weekly |
+| [`data/results_03_hidden.json`](data/results_03_hidden.json) | Hidden messages — acrostics, number patterns, catchphrases |
+| [`data/results_04_entities.json`](data/results_04_entities.json) | Country & people mention frequency + monthly trends |
+| [`data/results_05_anomaly.json`](data/results_05_anomaly.json) | Anomaly detection — emotion spikes, style mutations |
+| [`data/results_06_market.json`](data/results_06_market.json) | Posts vs S&P 500 correlation (with t-test) |
+| [`data/results_07_signal.json`](data/results_07_signal.json) | Signal sequences — TARIFF→DEAL transition timing |
+| [`data/results_08_backtest.json`](data/results_08_backtest.json) | Strategy backtesting — 7 rules vs Buy & Hold |
+| [`data/results_10_codechange.json`](data/results_10_codechange.json) | Code change detection — when he changes patterns |
+| [`data/results_11_bruteforce.json`](data/results_11_bruteforce.json) | Brute-force search — 31.5M models, 50K survivors |
+| [`data/results_12_bigmoves.json`](data/results_12_bigmoves.json) | Big move (>1%) prediction features |
+
+#### 🔴 X vs Truth Social Gap | 平台落差分析 | プラットフォーム比較
+
+| File | Description |
+|------|-------------|
+| [`data/x_independent_analysis.json`](data/x_independent_analysis.json) | **X posts analyzed independently** — timing, topics, market impact |
+| [`data/x_truth_cross_analysis.json`](data/x_truth_cross_analysis.json) | **Cross-platform gap** — selection mechanism, hidden topics, time lag |
+| [`data/x_truth_full_comparison.json`](data/x_truth_full_comparison.json) | Full post-by-post matching — 39 matched, 5,267 Truth Social exclusive |
+| [`data/x_truth_gap.json`](data/x_truth_gap.json) | Gap summary — 98.6% of content stays on Truth Social |
+
+#### 🤖 Prediction Engine | 預測引擎 | 予測エンジン
+
+| File | Description |
+|------|-------------|
+| [`data/surviving_rules.json`](data/surviving_rules.json) | All 50,872 model rules (features + direction + hold period) |
+| [`data/monitor_rules.json`](data/monitor_rules.json) | Top 100 rules for daily monitoring |
+| [`data/rules_weighted.json`](data/rules_weighted.json) | Rules with statistical weights |
+| [`data/predictions_log.json`](data/predictions_log.json) | Every prediction ever made |
+| [`data/daily_report.json`](data/daily_report.json) | Today's signals — trilingual (EN/ZH/JA) |
+| [`data/report_history.json`](data/report_history.json) | Historical daily reports |
 
 ### Fetch Directly | 直接拉資料 | 直接取得
 
