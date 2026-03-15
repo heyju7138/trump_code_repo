@@ -34,10 +34,33 @@ def log(msg):
 
 
 # ============================================================
-# 步驟 1: 抓最新推文
+# 步驟 1: 抓最新推文（多源）
 # ============================================================
 def fetch_posts():
-    log("1/6 抓取最新推文...")
+    """多源抓取：CNN + trumpstruth.org + Truth Social 同時抓，互相比對"""
+    log("📡 1/6 多源抓取推文...")
+    try:
+        from multi_source_fetcher import fetch_all_sources
+        posts_raw, source_report = fetch_all_sources()
+
+        if posts_raw:
+            # 過濾：只留原創、非 RT
+            posts = [p for p in posts_raw
+                     if p.get('content') and not p['content'].startswith('RT @')]
+            log(f"   ✅ 多源合併: {len(posts)} 篇原創推文")
+
+            # 存比對報告到 data/
+            safe_json_write(DATA / 'source_check_report.json', source_report)
+            return posts
+        else:
+            log("   ⚠️ 多源抓取失敗，fallback 到 CNN 單源")
+    except ImportError:
+        log("   ⚠️ multi_source_fetcher 不存在，fallback 到 CNN 單源")
+    except Exception as e:
+        log(f"   ⚠️ 多源抓取異常: {e}，fallback 到 CNN 單源")
+
+    # Fallback: 原本的 CNN 單源
+    log("   📥 Fallback: CNN Archive...")
     try:
         req = urllib.request.Request("https://ix.cnn.io/data/truth-social/truth_archive.csv")
         with urllib.request.urlopen(req, timeout=60) as resp:
