@@ -115,21 +115,21 @@ tr:hover{background:rgba(255,215,0,0.03)}
   <div style="max-width:900px;margin:28px auto 0;padding:0 20px">
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center">
       <div style="background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(204,0,0,0.08));border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:140px">
-        <div style="color:var(--gold);font-size:32px;font-weight:800">7,400+</div>
+        <div style="color:var(--gold);font-size:32px;font-weight:800" id="funnel-posts">7,400+</div>
         <div style="font-size:13px;color:var(--dim)">📝 Posts 推文</div>
       </div>
       <div style="color:var(--gold);font-size:20px">→</div>
       <div style="background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(68,136,255,0.08));border:1px solid rgba(255,215,0,0.2);border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:140px">
-        <div style="color:var(--gold);font-size:32px;font-weight:800">31.5M</div>
+        <div style="color:var(--gold);font-size:32px;font-weight:800" id="funnel-models">31.5M</div>
         <div style="font-size:13px;color:var(--dim)">🔬 Models 模型</div>
       </div>
       <div style="color:var(--red);font-size:20px">→ <span style="font-size:12px">99.84% out</span> →</div>
       <div style="background:linear-gradient(135deg,rgba(68,204,102,0.12),rgba(255,215,0,0.08));border:2px solid var(--green);border-radius:10px;padding:12px 20px;text-align:center;flex:1;min-width:140px">
-        <div style="color:var(--green);font-size:36px;font-weight:800">550</div>
+        <div style="color:var(--green);font-size:36px;font-weight:800" id="funnel-survivors">550</div>
         <div style="font-size:13px;color:var(--dim)">✅ Survivors 存活</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px" id="highlight-cards">
       <div style="background:var(--card);border:1px solid var(--green);border-radius:10px;padding:14px;text-align:center">
         <div style="color:var(--green);font-size:34px;font-weight:800">+1.12%</div>
         <div style="color:var(--dim);font-size:13px;margin-top:4px">盤前 RELIEF → S&P 漲</div>
@@ -200,7 +200,7 @@ tr:hover{background:rgba(255,215,0,0.03)}
 <!-- 重大發現 -->
 <div class="section">
   <h2>🔑 Key Discoveries 重大發現 重要な発見</h2>
-  <div class="discoveries">
+  <div class="discoveries" id="disc-cards">
     <div class="disc red">
       <div class="tag" style="color:#CC0000">🔴 Most Dangerous 最危險</div>
       <div class="val">Pure Tariff = -1.057%</div>
@@ -397,21 +397,21 @@ Trump 發推文 Truth Social
         <span class="live-dot"></span>
         <span style="font-size:15px;font-weight:600">Learning 學習引擎</span>
       </div>
-      <div style="font-size:16px;color:var(--dim)">每天自動升級好模型、降級差模型、淘汰廢物<br>上次：4 升 / 1 降 / 1 淘汰</div>
+      <div style="font-size:16px;color:var(--dim)">每天自動升級好模型、降級差模型、淘汰廢物<br><span id="engine-learning">4 升 / 1 降 / 1 淘汰</span></div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
         <span class="live-dot"></span>
         <span style="font-size:15px;font-weight:600">Evolver 規則進化</span>
       </div>
-      <div style="font-size:16px;color:var(--dim)">交配好規則＋突變＋精煉明星特徵<br>上次產出 50 條新規則</div>
+      <div style="font-size:16px;color:var(--dim)">交配好規則＋突變＋精煉明星特徵<br><span id="engine-evolver">+50 條新規則</span></div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
         <span class="live-dot"></span>
         <span style="font-size:15px;font-weight:600">Breaker 斷路器</span>
       </div>
-      <div style="font-size:16px;color:var(--dim)">跟隨機比 z=5.39 ✅<br>惡化偵測 50%vs61% 🟡<br>3 個反指標已翻轉</div>
+      <div style="font-size:16px;color:var(--dim)"><span id="engine-breaker">z=5.39 ✅</span><br>惡化偵測 50%vs61% 🟡<br>3 個反指標已翻轉</div>
     </div>
   </div>
 </div>
@@ -632,9 +632,101 @@ async function loadPM(){
   }catch(e){document.getElementById('pm-live-area').innerHTML='<span style="color:var(--dim)">Error loading markets</span>'}
 }
 
-load();loadPM();
+// === 新：從 /api/dashboard 一次拉全部 ===
+async function loadDashboard(){
+  try{
+    const d = await(await fetch(B+'/api/dashboard')).json();
+
+    // 漏斗數字
+    const f = d.funnel||{};
+    const funnelEl = document.getElementById('funnel-posts');
+    if(funnelEl){
+      funnelEl.textContent = (f.total_posts||7400).toLocaleString()+'+';
+      document.getElementById('funnel-features').textContent = f.features||384;
+      document.getElementById('funnel-models').textContent = (f.models_tested||31554180).toLocaleString();
+      document.getElementById('funnel-survivors').textContent = f.survivors||550;
+      document.getElementById('funnel-elim').textContent = (f.elimination_rate||99.84)+'%';
+    }
+
+    // 亮點卡片
+    const hls = d.highlights||[];
+    const hlEl = document.getElementById('highlight-cards');
+    if(hlEl && hls.length){
+      hlEl.innerHTML = hls.map(h=>`
+        <div style="background:var(--card);border:1px solid var(--${h.color});border-radius:10px;padding:14px;text-align:center">
+          <div style="color:var(--${h.color});font-size:34px;font-weight:800">${esc(h.value)}</div>
+          <div style="color:var(--dim);font-size:14px;margin-top:4px">${esc(h.label_zh)}<br>${esc(h.label_en)}</div>
+        </div>`).join('');
+    }
+
+    // 三張發現卡
+    const disc3 = d.discoveries_top3||[];
+    const disc3El = document.getElementById('disc-cards');
+    if(disc3El && disc3.length){
+      const colors = ['red','gold','blue'];
+      const icons = ['🔴','💰','🤯'];
+      const labels = ['Most Dangerous 最危險','Most Profitable 最賺錢','Biggest Surprise 最意外'];
+      disc3El.innerHTML = disc3.map((dd,i)=>`
+        <div class="disc ${colors[i]}">
+          <div class="tag" style="color:var(--${colors[i]})">${icons[i]} ${labels[i]}</div>
+          <div class="val">${esc(dd.pattern||dd.description||'').substring(0,40)}</div>
+          <div class="desc">${esc(dd.description||'')}</div>
+        </div>`).join('');
+    }
+
+    // 劇本
+    const playbook = d.playbook||{};
+    ['hedge','position','pump'].forEach(type=>{
+      const el = document.getElementById('play-'+type);
+      if(!el) return;
+      const rules = playbook[type]||[];
+      if(!rules.length) return;
+      let html = '<table>';
+      rules.forEach(r=>{
+        const ret = r.avg_return||0;
+        const color = ret>=0?'var(--green)':'var(--red)';
+        html+=`<tr><td>${esc(r.label||r.pattern||'')}</td><td style="color:${color}">${ret>=0?'+':''}${ret}%</td><td style="color:var(--dim)">${r.up_rate?r.up_rate+'% ↑':r.action||''}</td></tr>`;
+      });
+      html+='</table>';
+      el.innerHTML = html;
+    });
+
+    // 運算引擎
+    const eng = d.engines||{};
+    const lrn = eng.learning||{};
+    const evo = eng.evolution||{};
+    const brk = eng.breaker||{};
+    const engEl = document.getElementById('engine-learning');
+    if(engEl){
+      engEl.textContent = `${lrn.promoted||0} 升 / ${lrn.demoted||0} 降 / ${lrn.eliminated||0} 淘汰`;
+      document.getElementById('engine-evolver').textContent = `+${evo.new_rules||0} 新規則，共 ${evo.total_after||0} 條`;
+      document.getElementById('engine-breaker').textContent = `${brk.vs_random||'?'} | 連錯 ${brk.consecutive_wrong||0} | 反轉 ${brk.inverse_rules||0}`;
+    }
+
+    // Polymarket 表格
+    const pms = d.polymarket||[];
+    const pmEl = document.getElementById('pm-live-area');
+    if(pmEl && pms.length){
+      const filtered = pms.filter(m=>m.liquidity>500);
+      let html='<table><thead><tr><th>Market 市場</th><th>YES</th><th>NO</th><th>Liquidity</th></tr></thead><tbody>';
+      filtered.slice(0,12).forEach(m=>{
+        const yes=m.yes_price||0;
+        const yesColor=yes>0.7?'var(--green)':yes<0.3?'var(--red)':'var(--gold)';
+        html+=`<tr><td style="max-width:300px">${esc((m.question||'').substring(0,55))}</td>`;
+        html+=`<td style="color:${yesColor};font-weight:700">${(yes*100).toFixed(1)}%</td>`;
+        html+=`<td style="color:var(--dim)">${((m.no_price||0)*100).toFixed(1)}%</td>`;
+        html+=`<td style="color:var(--dim)">$${(m.liquidity||0).toLocaleString()}</td></tr>`;
+      });
+      html+='</tbody></table>';
+      pmEl.innerHTML=html;
+    }
+
+  }catch(e){console.warn('dashboard load failed:',e)}
+}
+
+load();loadDashboard();
 setInterval(load, 30000);
-setInterval(loadPM, 60000);
+setInterval(loadDashboard, 60000);
 </script>
 </body>
 </html>
