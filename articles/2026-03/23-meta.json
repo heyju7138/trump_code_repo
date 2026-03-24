@@ -1,19 +1,22 @@
 {
   "date": "2026-03-23",
-  "generated_at": "2026-03-24T04:00:24.492453+00:00",
+  "generated_at": "2026-03-24T11:20:56.172350+00:00",
   "posts_count": 12,
   "articles": {
     "zh": {
-      "status": "error",
-      "error": "washin_llm 失敗: 所有 AI 都失敗: claude-local: claude 指令不存在（未安裝 Claude Code） | Gemini: 沒有 Key"
+      "status": "ok",
+      "path": "/Users/tkman/Projects/trump-code/articles/2026-03/23-zh.md",
+      "length": 904
     },
     "en": {
-      "status": "error",
-      "error": "washin_llm 失敗: 所有 AI 都失敗: claude-local: claude 指令不存在（未安裝 Claude Code） | Gemini: 沒有 Key"
+      "status": "ok",
+      "path": "/Users/tkman/Projects/trump-code/articles/2026-03/23-en.md",
+      "length": 3229
     },
     "ja": {
-      "status": "error",
-      "error": "washin_llm 失敗: 所有 AI 都失敗: claude-local: claude 指令不存在（未安裝 Claude Code） | Gemini: 沒有 Key"
+      "status": "ok",
+      "path": "/Users/tkman/Projects/trump-code/articles/2026-03/23-ja.md",
+      "length": 970
     }
   },
   "schema": {
