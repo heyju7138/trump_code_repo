@@ -1,9 +1,9 @@
 {
   "type": "flash",
   "date": "2026-03-24",
-  "generated_at": "2026-03-24T19:40:34.598016+00:00",
-  "post_id": "116285845418508842",
-  "post_content": "State Senator Randy Maxwell is a Tremendous Champion for the incredible people of Indiana’s 43rd State Senate District! As a very successful Businessman, Randy knows the America First Policies require",
+  "generated_at": "2026-03-24T19:40:42.955473+00:00",
+  "post_id": "116285844543723984",
+  "post_content": "State Senator Jeff Raatz is an America First Patriot doing a fantastic job representing Indiana’s 27th State Senate District! A Brave U.S. Army Veteran, Jeff knows the Wisdom and Courage that is requi",
   "signals": "",
   "direction": "NEUTRAL",
   "confidence": 0.0,
@@ -11,17 +11,17 @@
     "zh": {
       "status": "ok",
       "path": "/Users/tkman/Projects/trump-code/articles/2026-03/24-flash-1940-zh.md",
-      "length": 465
+      "length": 410
     },
     "en": {
       "status": "ok",
       "path": "/Users/tkman/Projects/trump-code/articles/2026-03/24-flash-1940-en.md",
-      "length": 1548
+      "length": 1407
     },
     "ja": {
       "status": "ok",
       "path": "/Users/tkman/Projects/trump-code/articles/2026-03/24-flash-1940-ja.md",
-      "length": 472
+      "length": 459
     }
   }
 }
