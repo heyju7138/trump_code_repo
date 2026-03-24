@@ -261,6 +261,10 @@ def _append_pipeline_log(post, detect_latency, classify_ms, predict_ms,
         log(f"  ⚠️ pipeline log 寫入失敗: {e}")
 
 
+# git 操作鎖 — 防止多個快報 thread 同時 commit 撞 index.lock
+_git_lock = threading.Lock()
+
+
 def _trigger_flash_article(post: dict, signals: list, direction: str, confidence: float):
     """背景執行即時三語快報生成（不阻塞 RSS 監控迴圈）。"""
     def _run():
@@ -271,20 +275,23 @@ def _trigger_flash_article(post: dict, signals: list, direction: str, confidence
             ok = sum(1 for v in meta.get('articles', {}).values() if v.get('status') == 'ok')
             log(f"     📝 即時快報完成：{ok}/3 語言成功")
 
-            # 自動 git commit（快報）
+            # git commit（加鎖防止併發衝突）
             if ok > 0:
                 import subprocess
                 cwd = str(Path(__file__).parent)
-                subprocess.run(["git", "add", "articles/"], cwd=cwd, capture_output=True)
-                subprocess.run(
-                    ["git", "commit", "-m", f"flash: {post['id'][:20]} 即時快報 ({direction})"],
-                    cwd=cwd, capture_output=True,
-                )
-                log(f"     📝 Git commit 完成")
+                with _git_lock:
+                    r1 = subprocess.run(["git", "add", "articles/"], cwd=cwd, capture_output=True)
+                    r2 = subprocess.run(
+                        ["git", "commit", "-m", f"flash: {post['id'][:20]} 即時快報 ({direction})"],
+                        cwd=cwd, capture_output=True,
+                    )
+                    if r2.returncode == 0:
+                        log(f"     📝 Git commit 完成")
+                    else:
+                        log(f"     ⚠️ Git commit 失敗: {r2.stderr.decode()[:100]}")
         except Exception as e:
             log(f"     ⚠️ 即時快報失敗: {e}")
 
-    # 背景執行，不阻塞 RSS 監控
     t = threading.Thread(target=_run, daemon=True)
     t.start()
 

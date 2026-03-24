@@ -160,24 +160,28 @@ def generate_articles(target_date: str = None):
     article_dir = ARTICLES / month
     article_dir.mkdir(parents=True, exist_ok=True)
 
-    results = {}
-    for lang in ["zh", "en", "ja"]:
+    # 三語並行生成（從 45 秒縮到 15 秒）
+    from concurrent.futures import ThreadPoolExecutor
+
+    def _gen_one(lang):
         log(f"   [{lang}] 呼叫 LLM...")
         try:
             prompt = build_prompt(lang, posts, report, target_date)
             article = call_llm(prompt)
-
-            # 存檔
             out_path = article_dir / f"{day}-{lang}.md"
             out_path.write_text(article, encoding="utf-8")
-            results[lang] = {"status": "ok", "path": str(out_path), "length": len(article)}
             log(f"   [{lang}] ✅ {len(article)} 字 → {out_path}")
+            return lang, {"status": "ok", "path": str(out_path), "length": len(article)}
         except Exception as e:
-            results[lang] = {"status": "error", "error": str(e)}
             log(f"   [{lang}] ❌ {e}")
+            return lang, {"status": "error", "error": str(e)}
+
+    results = {}
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        for lang, result in pool.map(_gen_one, ["zh", "en", "ja"]):
+            results[lang] = result
 
     # 存 metadata（含 Article Schema for SEO/AEO）
-    lang_names = {"zh": "繁體中文", "en": "English", "ja": "日本語"}
     meta = {
         "date": target_date,
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -352,8 +356,10 @@ def generate_flash(post: dict, signals: list, direction: str, confidence: float)
         },
     }
 
-    results = {}
-    for lang in ["zh", "en", "ja"]:
+    # 三語並行生成（從 45 秒縮到 15 秒）
+    from concurrent.futures import ThreadPoolExecutor
+
+    def _gen_flash_one(lang):
         cfg = lang_config[lang]
         prompt = f"""{cfg['instruction']}
 
@@ -381,11 +387,16 @@ def generate_flash(post: dict, signals: list, direction: str, confidence: float)
             article = call_llm(prompt, max_tokens=1000)
             out_path = article_dir / f"{day}-flash-{hm}-{lang}.md"
             out_path.write_text(article, encoding="utf-8")
-            results[lang] = {"status": "ok", "path": str(out_path), "length": len(article)}
             log(f"   [flash-{lang}] ✅ {len(article)} 字 → {out_path}")
+            return lang, {"status": "ok", "path": str(out_path), "length": len(article)}
         except Exception as e:
-            results[lang] = {"status": "error", "error": str(e)}
             log(f"   [flash-{lang}] ❌ {e}")
+            return lang, {"status": "error", "error": str(e)}
+
+    results = {}
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        for lang, result in pool.map(_gen_flash_one, ["zh", "en", "ja"]):
+            results[lang] = result
 
     # 存 metadata
     meta = {

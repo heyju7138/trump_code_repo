@@ -1015,10 +1015,11 @@ class ChatHandler(BaseHTTPRequestHandler):
                 self.end_headers()
 
         elif self.path.startswith('/articles/'):
-            # 每日文章靜態檔案（articles/ 目錄下）
+            # 每日文章靜態檔案 — 防路徑遍歷攻擊
             fname = self.path.lstrip('/')
-            fpath = BASE / fname
-            if fpath.exists() and fpath.is_file():
+            fpath = (BASE / fname).resolve()
+            articles_root = (BASE / 'articles').resolve()
+            if fpath.is_file() and str(fpath).startswith(str(articles_root)):
                 ext = fpath.suffix
                 ct = {'.md': 'text/markdown; charset=utf-8',
                       '.json': 'application/json; charset=utf-8'}.get(ext, 'text/plain; charset=utf-8')
