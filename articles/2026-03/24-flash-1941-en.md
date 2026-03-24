@@ -1,21 +1,23 @@
 ⚡ Trump Code | Flash — Indiana State Senator Endorsement
 
+**Signal: NEUTRAL | Confidence: LOW**
+
 ## What He Said
 
-Trump endorsed Indiana State Senator Mike Gaskill (R-25th District), praising him as a "MAGA Warrior" and successful businessman aligned with America First policies.
+Trump endorsed Indiana State Senator Liz Brown (District 15), praising her as a "MAGA Warrior" and highlighting her work on tax cuts, deregulation, energy dominance, and immigration enforcement.
 
-## Why It Matters (Short Answer: It Doesn't Much)
+## Why It Matters (Short Answer: It Doesn't — For Markets)
 
-**Market Impact: NEGLIGIBLE.** This is a standard political endorsement of a state-level legislator — not federal policy, not executive action, not a tariff threat. No sector, commodity, or index should move on this.
+This is a **routine state-level political endorsement** with near-zero direct market impact. No policy announcement, no tariff signal, no federal legislation reference. The post reads as standard midterm positioning — rallying base support for a loyal state senator in Indiana.
 
-The post is a boilerplate endorsement hitting familiar talking points: jobs, energy dominance, tax cuts, deregulation, military support, and border security. There is no new policy signal, no timeline, and no federal legislative action attached.
+Key context: The language hits all standard MAGA talking points (energy dominance, Made in USA, migrant crime, cut taxes/regulations) but contains **no new policy signals**. These are recycled themes, not actionable catalysts.
 
-**Confidence: HIGH that this is noise, not signal.**
+The post appears truncated ("Strengt—"), suggesting either a platform character limit issue or a multi-part post. The cut-off word is likely "Strengthen" — watch for the full version.
 
 ## What to Watch
 
-- **Nothing immediate.** No trade action required.
-- **Pattern context:** Trump has been issuing a wave of state-level endorsements — this signals **midterm positioning**, not market-relevant policy shifts. If endorsement frequency accelerates, it may indicate he's pivoting attention toward 2026 midterms and away from executive actions (tariffs, trade deals) that actually move markets.
-- **Energy sector note:** "American Energy DOMINANCE" is repeated rhetoric, not a new directive. No change to oil/gas/renewables positioning warranted.
+- **Nothing immediate.** No sector rotation or volatility trigger here.
+- **Indiana-specific:** If Brown is positioned for a higher office bid (Governor, US Senate), future endorsements could matter for Indiana municipal bonds or state-level policy plays.
+- **Pattern recognition:** If Trump shifts from state endorsements back to tariff/trade posts today, that transition is the real signal.
 
-**Signal: NEUTRAL | Confidence: HIGH | Action: NONE**
+**Bottom line: File under political noise. Resume watching for tariff, Fed, or trade posts.**
