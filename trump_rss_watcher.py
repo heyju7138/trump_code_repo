@@ -264,6 +264,10 @@ def _append_pipeline_log(post, detect_latency, classify_ms, predict_ms,
 # git 操作鎖 — 防止多個快報 thread 同時 commit 撞 index.lock
 _git_lock = threading.Lock()
 
+# X 發推失敗計數（跨 thread 共享）
+_x_fail_count = 0
+_x_fail_lock = threading.Lock()
+
 
 def _trigger_flash_article(post: dict, signals: list, direction: str, confidence: float):
     """背景執行即時三語快報生成（不阻塞 RSS 監控迴圈）。"""
@@ -277,6 +281,7 @@ def _trigger_flash_article(post: dict, signals: list, direction: str, confidence
 
             # 發 X 三語 Thread
             if ok > 0:
+                global _x_fail_count
                 try:
                     from x_poster import post_flash_thread
                     x_result = post_flash_thread(meta)
@@ -284,10 +289,16 @@ def _trigger_flash_article(post: dict, signals: list, direction: str, confidence
                         tweets = x_result.get('tweets', [])
                         langs = '/'.join(t['lang'] for t in tweets)
                         log(f"     🐦 X Thread {len(tweets)} 則 ({langs}): {x_result.get('main_url', '')}")
+                        with _x_fail_lock:
+                            _x_fail_count = 0
                     else:
-                        log(f"     ⚠️ X 發推失敗: {x_result.get('error', '')[:80]}")
+                        with _x_fail_lock:
+                            _x_fail_count += 1
+                        log(f"     ⚠️ X 發推失敗 (連續{_x_fail_count}次): {x_result.get('error', '')[:80]}")
                 except Exception as e:
-                    log(f"     ⚠️ X 發推例外: {e}")
+                    with _x_fail_lock:
+                        _x_fail_count += 1
+                    log(f"     ⚠️ X 發推例外 (連續{_x_fail_count}次): {e}")
 
             # git commit（加鎖防止併發衝突）
             if ok > 0:
@@ -365,18 +376,94 @@ def run_loop():
 
     heartbeat = 0
     last_article_date = None  # 追蹤上次生成文章的日期
+    last_health_hour = -1     # 追蹤上次健康檢查的小時
+    consecutive_rss_fails = 0 # 連續 RSS 失敗次數
+    health_file = Path(__file__).parent / "data" / "health_status.json"
+
+    def _write_health(status: str, details: dict = None):
+        """寫入健康狀態檔 — 外部監控可讀。"""
+        health = {
+            "status": status,  # "ok" / "degraded" / "down"
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "uptime_min": heartbeat * POLL_INTERVAL // 60,
+            "consecutive_rss_fails": consecutive_rss_fails,
+            "consecutive_x_fails": _x_fail_count,
+            "details": details or {},
+        }
+        try:
+            health_file.write_text(json.dumps(health, ensure_ascii=False, indent=2))
+        except Exception:
+            pass
+
+    def _self_check() -> list[str]:
+        """自我健康檢查，回傳問題清單。"""
+        issues = []
+
+        # 1. RSS 連續失敗？
+        if consecutive_rss_fails >= 5:
+            issues.append(f"🔴 RSS 連續失敗 {consecutive_rss_fails} 次")
+
+        # 2. X API key 有效？
+        try:
+            from x_poster import API_KEY, ACCESS_TOKEN
+            if not API_KEY or not ACCESS_TOKEN:
+                issues.append("🔴 X API key 未設定")
+        except Exception:
+            issues.append("🔴 x_poster import 失敗")
+
+        # 3. X 連續發推失敗？
+        if _x_fail_count >= 3:
+            issues.append(f"🟡 X 連續發推失敗 {_x_fail_count} 次")
+
+        # 4. LLM 可用？
+        try:
+            from realtime_loop import HAS_WASHIN_LLM
+            if not HAS_WASHIN_LLM:
+                issues.append("🟡 washin_llm 不可用（快報會降級）")
+        except Exception:
+            pass
+
+        # 5. 磁碟空間（articles 目錄）
+        try:
+            import shutil
+            usage = shutil.disk_usage(Path(__file__).parent)
+            free_gb = usage.free / (1024**3)
+            if free_gb < 1:
+                issues.append(f"🟡 磁碟剩餘 {free_gb:.1f}GB")
+        except Exception:
+            pass
+
+        return issues
 
     while True:
         try:
             new_count = run_once()
+            if new_count >= 0:
+                consecutive_rss_fails = 0  # RSS 成功，重置計數
             heartbeat += 1
+
             # 每 10 輪（5 分鐘）印一次心跳
             if heartbeat % 10 == 0 and new_count == 0:
                 log(f"💓 心跳: 已監控 {heartbeat * POLL_INTERVAL // 60} 分鐘, 無新推文")
 
+            # === 每小時自我健康檢查 ===
+            now_utc = datetime.now(timezone.utc)
+            if now_utc.hour != last_health_hour:
+                last_health_hour = now_utc.hour
+                issues = _self_check()
+                if issues:
+                    status = "down" if any("🔴" in i for i in issues) else "degraded"
+                    log(f"🏥 健康檢查: {status}")
+                    for issue in issues:
+                        log(f"   {issue}")
+                    _write_health(status, {"issues": issues})
+                else:
+                    _write_health("ok")
+                    if heartbeat > 1:  # 不在啟動時印
+                        log(f"🏥 健康檢查: ✅ 全部正常")
+
             # === 每日文章自動生成 ===
             # 美東 23:00-23:59（UTC 04:00-04:59）觸發當天文章
-            now_utc = datetime.now(timezone.utc)
             today_str = now_utc.strftime('%Y-%m-%d')
             if now_utc.hour == 4 and last_article_date != today_str:
                 # 生成前一天的文章（美東今天 = UTC 明天凌晨）
@@ -391,9 +478,10 @@ def run_loop():
 
                     # Git commit + push
                     import subprocess
-                    subprocess.run(["git", "add", f"articles/"], cwd=str(Path(__file__).parent), capture_output=True)
-                    subprocess.run(["git", "commit", "-m", f"daily: {yesterday} 三語分析文章"], cwd=str(Path(__file__).parent), capture_output=True)
-                    subprocess.run(["git", "push"], cwd=str(Path(__file__).parent), capture_output=True)
+                    cwd = str(Path(__file__).parent)
+                    subprocess.run(["git", "add", "articles/"], cwd=cwd, capture_output=True)
+                    subprocess.run(["git", "commit", "-m", f"daily: {yesterday} 三語分析文章"], cwd=cwd, capture_output=True)
+                    subprocess.run(["git", "push"], cwd=cwd, capture_output=True)
                     log(f"📝 Git push 完成")
                 except Exception as e:
                     log(f"📝 文章生成失敗: {e}")
@@ -401,9 +489,13 @@ def run_loop():
 
         except KeyboardInterrupt:
             log("停止。")
+            _write_health("stopped", {"reason": "KeyboardInterrupt"})
             break
         except Exception as e:
             log(f"⚠️ 錯誤: {e}")
+            # RSS 失敗計數（run_once 裡 exception 會到這）
+            if "RSS" in str(e) or "urllib" in str(e):
+                consecutive_rss_fails += 1
 
         time.sleep(POLL_INTERVAL)
 
