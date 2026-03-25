@@ -14,3 +14,14 @@
 - 🔹 欧州関連で追加発言があるか（対EU関税の布石の可能性）
 
 > **結論：様子見。** 単独では動かない投稿だが、対欧州戦略の文脈で後続発言が出れば意味が変わる。
+
+---
+**📋 出典・分析手法**
+- 原文：Truth Social
+- リンク：https://truthsocial.com/@realDonaldTrump/posts/116286710096907230
+- シグナル：DEAL, BULLISH | 方向：UP | 信頼度：30%
+- 分析エンジン：Trump Code AI（Claude Opus / Gemini Flash）
+- シグナル検出：7,400件以上の投稿から検証済み551ルール（z=5.39）
+- 手法：NLPキーワード分類 → LLM因果推論 → 信頼度スコアリング
+- データセット：trumpcode.washinmura.jp/api/data
+- オープンソース：github.com/sstklen/trump-code

@@ -23,3 +23,14 @@ Trump issued a full-throated endorsement of Hungarian PM Viktor Orbán, praising
 | **Defense stocks (LMT, RTX)** | Hungary has been increasing NATO spending; any follow-up MoU would be the real trade |
 
 **Bottom line:** File under "diplomacy theater." No position change warranted unless a concrete deal follows within 48 hours.
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116286710096907230
+- Signals: DEAL, BULLISH | Direction: UP | Confidence: 30%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

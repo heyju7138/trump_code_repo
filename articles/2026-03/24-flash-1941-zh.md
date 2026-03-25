@@ -12,3 +12,14 @@
 - **持續追蹤：** 川普背書頻率與對象——若密集背書特定產業立場的候選人，代表該政策方向的立法動能正在累積
 
 📊 **信號強度：低｜市場影響：中性｜無即時操作建議**
+
+---
+**📋 出處與方法**
+- 原文來源：Truth Social
+- 原文連結：https://truthsocial.com/@realDonaldTrump/posts/116285831257066510
+- 信號： | 方向：NEUTRAL | 信心度：0%
+- 分析引擎：Trump Code AI（Claude Opus / Gemini Flash）
+- 信號偵測：基於 7,400+ 篇推文訓練的 551 條規則，z=5.39
+- 分析方法：NLP 關鍵字分類 → LLM 因果推理 → 信心度評分
+- 資料集：trumpcode.washinmura.jp/api/data
+- 原始碼：github.com/sstklen/trump-code

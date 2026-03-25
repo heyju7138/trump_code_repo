@@ -19,3 +19,14 @@ Key context: Indiana is a deep-red state (Trump +33 pts in this district). This 
 - **Ignore unless:** Follow-up posts pivot to federal policy (tariffs, debt ceiling, Fed). That's where the signal lives.
 
 **Bottom line:** File under political noise. Resume watching tariff and Fed headlines.
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116285908636437489
+- Signals:  | Direction: NEUTRAL | Confidence: 0%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

@@ -9,3 +9,14 @@
 **建議關注：** 這則本身不需要調整部位。但如果你在追蹤川普的黨內控制力，留意他近期背書的頻率和成功率——這是判斷 2026 中期選舉共和黨能否守住國會多數的領先指標，而國會多數直接影響減稅延長、財政政策等市場大事。
 
 > 📌 **結論：純政治操作，短線無感，長線留意黨內整合進度。**
+
+---
+**📋 出處與方法**
+- 原文來源：Truth Social
+- 原文連結：https://truthsocial.com/@realDonaldTrump/posts/116285908636437489
+- 信號： | 方向：NEUTRAL | 信心度：0%
+- 分析引擎：Trump Code AI（Claude Opus / Gemini Flash）
+- 信號偵測：基於 7,400+ 篇推文訓練的 551 條規則，z=5.39
+- 分析方法：NLP 關鍵字分類 → LLM 因果推理 → 信心度評分
+- 資料集：trumpcode.washinmura.jp/api/data
+- 原始碼：github.com/sstklen/trump-code

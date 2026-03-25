@@ -17,3 +17,14 @@ Trump endorsed Sydney Gruters — wife of RNC Chairman Joe Gruters — for Flori
 - **Next real catalyst:** Watch for posts containing keywords: *tariff, Fed, China, rate, ban, executive order*. That's where the alpha lives.
 
 **TL;DR — File under political housekeeping. Resume normal positioning.**
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116285820638971415
+- Signals:  | Direction: NEUTRAL | Confidence: 0%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

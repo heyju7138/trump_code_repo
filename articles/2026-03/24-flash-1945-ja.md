@@ -11,3 +11,14 @@
 - 🏭 同様の地方支持表明が連続する場合、中間選挙に向けた「減税・製造業回帰」路線の地固めとして注視
 
 **判定：NEUTRAL** ― 通常の政治活動。次の政策関連発言を待つ局面。
+
+---
+**📋 出典・分析手法**
+- 原文：Truth Social
+- リンク：https://truthsocial.com/@realDonaldTrump/posts/116285849550720642
+- シグナル： | 方向：NEUTRAL | 信頼度：0%
+- 分析エンジン：Trump Code AI（Claude Opus / Gemini Flash）
+- シグナル検出：7,400件以上の投稿から検証済み551ルール（z=5.39）
+- 手法：NLPキーワード分類 → LLM因果推論 → 信頼度スコアリング
+- データセット：trumpcode.washinmura.jp/api/data
+- オープンソース：github.com/sstklen/trump-code

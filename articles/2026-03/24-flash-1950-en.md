@@ -21,3 +21,14 @@ However, the **meta-signal matters**:
 - **Broader pattern:** Track frequency of Trump endorsements against incumbent Republicans — higher frequency = stronger party discipline = higher probability his legislative agenda passes intact.
 
 **Signal: NEUTRAL | Confidence: Low | Actionability: None**
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116285866660628943
+- Signals:  | Direction: NEUTRAL | Confidence: 0%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

@@ -12,3 +12,14 @@
 - 共和党内の造反議員数の推移（税制・予算法案の通過可否に直結）
 
 > **判定：NEUTRAL｜市場感応度：低｜アクション不要**
+
+---
+**📋 出典・分析手法**
+- 原文：Truth Social
+- リンク：https://truthsocial.com/@realDonaldTrump/posts/116285866660628943
+- シグナル： | 方向：NEUTRAL | 信頼度：0%
+- 分析エンジン：Trump Code AI（Claude Opus / Gemini Flash）
+- シグナル検出：7,400件以上の投稿から検証済み551ルール（z=5.39）
+- 手法：NLPキーワード分類 → LLM因果推論 → 信頼度スコアリング
+- データセット：trumpcode.washinmura.jp/api/data
+- オープンソース：github.com/sstklen/trump-code

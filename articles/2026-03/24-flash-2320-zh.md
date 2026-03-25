@@ -14,3 +14,14 @@
 - 指標：歐元兌美元走勢、美歐貿易談判進展
 
 **信心度 30%，方向微偏多，但這張牌本身不夠大。繼續觀望。**
+
+---
+**📋 出處與方法**
+- 原文來源：Truth Social
+- 原文連結：https://truthsocial.com/@realDonaldTrump/posts/116286710096907230
+- 信號：DEAL, BULLISH | 方向：UP | 信心度：30%
+- 分析引擎：Trump Code AI（Claude Opus / Gemini Flash）
+- 信號偵測：基於 7,400+ 篇推文訓練的 551 條規則，z=5.39
+- 分析方法：NLP 關鍵字分類 → LLM 因果推理 → 信心度評分
+- 資料集：trumpcode.washinmura.jp/api/data
+- 原始碼：github.com/sstklen/trump-code

@@ -23,3 +23,14 @@ Key phrases like "MADE IN THE U.S.A." and "American Energy DOMINANCE" are recycl
 **Verdict:** File under political noise. Resume watching for tariff/Fed/trade posts.
 
 *— Trump Code Flash Desk, 2026-03-25*
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116285842940120300
+- Signals:  | Direction: NEUTRAL | Confidence: 0%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

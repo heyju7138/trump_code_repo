@@ -24,3 +24,14 @@ However, traders should note the **second-order risk**: if this escalates into d
 ## Bottom Line
 
 Political theater, not market catalyst — **file under noise unless escalation follows within 48 hours.** The real triggers this week remain tariff policy and Fed commentary.
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116287749682881628
+- Signals:  | Direction: NEUTRAL | Confidence: 0%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

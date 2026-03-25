@@ -12,3 +12,14 @@
 - **次の投稿：** 関税・貿易に話題が移れば要警戒
 
 📌 現時点では「政治発言」であり「政策変更」ではない。次の発言を待て。
+
+---
+**📋 出典・分析手法**
+- 原文：Truth Social
+- リンク：https://truthsocial.com/@realDonaldTrump/posts/116282577310101116
+- シグナル： | 方向：NEUTRAL | 信頼度：0%
+- 分析エンジン：Trump Code AI（Claude Opus / Gemini Flash）
+- シグナル検出：7,400件以上の投稿から検証済み551ルール（z=5.39）
+- 手法：NLPキーワード分類 → LLM因果推論 → 信頼度スコアリング
+- データセット：trumpcode.washinmura.jp/api/data
+- オープンソース：github.com/sstklen/trump-code

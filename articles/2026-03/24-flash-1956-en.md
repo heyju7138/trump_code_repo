@@ -23,3 +23,14 @@ However, for pattern-watchers:
 - **If you hold positions sensitive to 2026 House composition** (healthcare, energy, defense budget), monitor whether redistricting battles spread to other states.
 
 **Bottom line: Political housekeeping, not a market event. File under "power consolidation" and move on.**
+
+---
+**📋 Sources & Methodology**
+- Original post: Truth Social
+- Source URL: https://truthsocial.com/@realDonaldTrump/posts/116285893161347117
+- Signals:  | Direction: NEUTRAL | Confidence: 0%
+- Analysis engine: Trump Code AI (Claude Opus / Gemini Flash)
+- Signal detection: 551 validated rules from 7,400+ posts (z=5.39)
+- Method: NLP keyword classification → LLM causal reasoning → confidence scoring
+- Dataset: trumpcode.washinmura.jp/api/data
+- Open source: github.com/sstklen/trump-code

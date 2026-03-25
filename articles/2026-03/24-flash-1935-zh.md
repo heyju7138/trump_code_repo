@@ -9,3 +9,14 @@
 **唯一值得留意的脈絡：** 川普持續鞏固國會盟友版圖，「減稅 + 砍監管」的立法方向不變。如果你在追蹤減稅延續法案（TCJA 2.0）的進度，這代表川普陣營正在確保國會有足夠票數推動。但這是長線政治訊號，不是今天要動作的理由。
 
 **結論：無需動作，繼續觀望。**
+
+---
+**📋 出處與方法**
+- 原文來源：Truth Social
+- 原文連結：https://truthsocial.com/@realDonaldTrump/posts/116285820638971415
+- 信號： | 方向：NEUTRAL | 信心度：0%
+- 分析引擎：Trump Code AI（Claude Opus / Gemini Flash）
+- 信號偵測：基於 7,400+ 篇推文訓練的 551 條規則，z=5.39
+- 分析方法：NLP 關鍵字分類 → LLM 因果推理 → 信心度評分
+- 資料集：trumpcode.washinmura.jp/api/data
+- 原始碼：github.com/sstklen/trump-code

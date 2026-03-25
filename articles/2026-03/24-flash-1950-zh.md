@@ -12,3 +12,14 @@
 - 指標：共和黨國會多數席次預測市場（如 Polymarket）的變化
 
 **結論：今天這則是政治操盤，不是市場訊號。繼續看下一則。**
+
+---
+**📋 出處與方法**
+- 原文來源：Truth Social
+- 原文連結：https://truthsocial.com/@realDonaldTrump/posts/116285866660628943
+- 信號： | 方向：NEUTRAL | 信心度：0%
+- 分析引擎：Trump Code AI（Claude Opus / Gemini Flash）
+- 信號偵測：基於 7,400+ 篇推文訓練的 551 條規則，z=5.39
+- 分析方法：NLP 關鍵字分類 → LLM 因果推理 → 信心度評分
+- 資料集：trumpcode.washinmura.jp/api/data
+- 原始碼：github.com/sstklen/trump-code

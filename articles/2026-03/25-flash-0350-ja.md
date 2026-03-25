@@ -15,3 +15,14 @@
 - 欧州防衛株ETF・日本防衛関連銘柄の出来高
 
 ⏱️ 現時点では発言のみ。具体的な対イラン制裁・軍事行動の言及が出れば警戒レベル引き上げ。
+
+---
+**📋 出典・分析手法**
+- 原文：Truth Social
+- リンク：https://truthsocial.com/@realDonaldTrump/posts/116287754799935332
+- シグナル：THREAT, BULLISH | 方向：NEUTRAL | 信頼度：30%
+- 分析エンジン：Trump Code AI（Claude Opus / Gemini Flash）
+- シグナル検出：7,400件以上の投稿から検証済み551ルール（z=5.39）
+- 手法：NLPキーワード分類 → LLM因果推論 → 信頼度スコアリング
+- データセット：trumpcode.washinmura.jp/api/data
+- オープンソース：github.com/sstklen/trump-code

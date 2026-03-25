@@ -14,3 +14,14 @@
 - 國會是否有相關撥款法案進入排程
 
 **結論：純政治口水，暫時按兵不動。留意後續是否有政策跟進。**
+
+---
+**📋 出處與方法**
+- 原文來源：Truth Social
+- 原文連結：https://truthsocial.com/@realDonaldTrump/posts/116282577310101116
+- 信號： | 方向：NEUTRAL | 信心度：0%
+- 分析引擎：Trump Code AI（Claude Opus / Gemini Flash）
+- 信號偵測：基於 7,400+ 篇推文訓練的 551 條規則，z=5.39
+- 分析方法：NLP 關鍵字分類 → LLM 因果推理 → 信心度評分
+- 資料集：trumpcode.washinmura.jp/api/data
+- 原始碼：github.com/sstklen/trump-code
