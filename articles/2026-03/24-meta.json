@@ -1,19 +1,22 @@
 {
   "date": "2026-03-24",
-  "generated_at": "2026-03-25T04:00:31.901368+00:00",
+  "generated_at": "2026-03-25T04:00:46.367504+00:00",
   "posts_count": 26,
   "articles": {
     "zh": {
-      "status": "error",
-      "error": "所有 LLM 都失敗"
+      "status": "ok",
+      "path": "/Users/tkman/Projects/trump-code/articles/2026-03/24-zh.md",
+      "length": 872
     },
     "en": {
-      "status": "error",
-      "error": "所有 LLM 都失敗"
+      "status": "ok",
+      "path": "/Users/tkman/Projects/trump-code/articles/2026-03/24-en.md",
+      "length": 3323
     },
     "ja": {
-      "status": "error",
-      "error": "所有 LLM 都失敗"
+      "status": "ok",
+      "path": "/Users/tkman/Projects/trump-code/articles/2026-03/24-ja.md",
+      "length": 1010
     }
   },
   "schema": {

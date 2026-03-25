@@ -972,7 +972,7 @@
     "trump_coin_verify_1h": null,
     "trump_coin_verify_3h": null,
     "trump_coin_verify_6h": null,
-    "status": "LIVE"
+    "status": "EXPIRED"
   },
   {
     "id": "rt_1774354837",
@@ -1047,7 +1047,7 @@
     "trump_coin_verify_1h": null,
     "trump_coin_verify_3h": null,
     "trump_coin_verify_6h": null,
-    "status": "LIVE"
+    "status": "EXPIRED"
   },
   {
     "id": "rt_1774354837",
@@ -1140,7 +1140,7 @@
     "trump_coin_verify_1h": null,
     "trump_coin_verify_3h": null,
     "trump_coin_verify_6h": null,
-    "status": "LIVE"
+    "status": "EXPIRED"
   },
   {
     "id": "rt_1774354837",
@@ -1224,7 +1224,7 @@
     "trump_coin_verify_1h": null,
     "trump_coin_verify_3h": null,
     "trump_coin_verify_6h": null,
-    "status": "LIVE"
+    "status": "EXPIRED"
   },
   {
     "id": "rt_1774381463",
@@ -2440,6 +2440,156 @@
     "divergence_detail": null,
     "trump_coin_at_signal": 3.25,
     "trump_coin_24h_change": -0.9,
+    "trump_coin_verify_1h": null,
+    "trump_coin_verify_3h": null,
+    "trump_coin_verify_6h": null,
+    "status": "LIVE"
+  },
+  {
+    "id": "rt_1774443937",
+    "created_at": "2026-03-25T13:05:37Z",
+    "post_time": "2026-03-25T03:47:08.290Z",
+    "post_preview": "Terrible!https://x.com/jamesokeefeiii/status/2036527947255788007?s=46",
+    "signals": [
+      {
+        "type": "BEARISH",
+        "confidence": 0.65,
+        "matched_keywords": [
+          "terrible"
+        ],
+        "method": "keyword"
+      }
+    ],
+    "signal_types": [
+      "BEARISH"
+    ],
+    "predicted_direction": "DOWN",
+    "confidence": 0.65,
+    "tracked_markets": [
+      {
+        "token_id": "455706941283062355801017880406",
+        "question": "Trump announces end of military operations against Iran by March 1st?",
+        "price_at_signal": 0.0
+      },
+      {
+        "token_id": "112691699136636025197139638532",
+        "question": "Trump announces end of military operations against Iran by March 1st?",
+        "price_at_signal": 1.0
+      },
+      {
+        "token_id": "498217121642241685638993540748",
+        "question": "Trump announces end of military operations against Iran by March 2nd?",
+        "price_at_signal": 0.0
+      },
+      {
+        "token_id": "323789873922294151961812443627",
+        "question": "Trump announces end of military operations against Iran by March 2nd?",
+        "price_at_signal": 1.0
+      },
+      {
+        "token_id": "127617713601282837094220087247",
+        "question": "Trump announces end of military operations against Iran by March 7th?",
+        "price_at_signal": 0.0
+      }
+    ],
+    "pm_price_at_signal": 0.0,
+    "pm_verify_1h": null,
+    "pm_verify_3h": null,
+    "pm_verify_6h": null,
+    "pm_verify_12h": null,
+    "pm_verify_24h": null,
+    "pm_verify_48h": null,
+    "pm_correct_1h": null,
+    "pm_correct_3h": null,
+    "spy_at_signal": 653.18,
+    "es_at_signal": 6661.25,
+    "spy_change_at_signal": -0.674,
+    "spy_verify_1h": null,
+    "spy_verify_3h": null,
+    "spy_verify_12h": null,
+    "spy_verify_24h": null,
+    "spy_verify_48h": null,
+    "spy_correct_1h": null,
+    "spy_correct_3h": null,
+    "pm_vs_stock_divergence": null,
+    "divergence_detail": null,
+    "trump_coin_at_signal": 3.36,
+    "trump_coin_24h_change": 2.53,
+    "trump_coin_verify_1h": null,
+    "trump_coin_verify_3h": null,
+    "trump_coin_verify_6h": null,
+    "status": "LIVE"
+  },
+  {
+    "id": "rt_1774443937",
+    "created_at": "2026-03-25T13:05:37Z",
+    "post_time": "2026-03-24T23:19:40.138Z",
+    "post_preview": "Highly Respected Prime Minister of Hungary, Viktor Orbán, is a truly strong and powerful Leader, with a proven track record of delivering phenomenal results. He fights tirelessly for, and loves, his G",
+    "signals": [
+      {
+        "type": "BULLISH",
+        "confidence": 0.65,
+        "matched_keywords": [
+          "jobs"
+        ],
+        "method": "keyword"
+      }
+    ],
+    "signal_types": [
+      "BULLISH"
+    ],
+    "predicted_direction": "UP",
+    "confidence": 0.65,
+    "tracked_markets": [
+      {
+        "token_id": "455706941283062355801017880406",
+        "question": "Trump announces end of military operations against Iran by March 1st?",
+        "price_at_signal": 0.0
+      },
+      {
+        "token_id": "112691699136636025197139638532",
+        "question": "Trump announces end of military operations against Iran by March 1st?",
+        "price_at_signal": 1.0
+      },
+      {
+        "token_id": "498217121642241685638993540748",
+        "question": "Trump announces end of military operations against Iran by March 2nd?",
+        "price_at_signal": 0.0
+      },
+      {
+        "token_id": "323789873922294151961812443627",
+        "question": "Trump announces end of military operations against Iran by March 2nd?",
+        "price_at_signal": 1.0
+      },
+      {
+        "token_id": "127617713601282837094220087247",
+        "question": "Trump announces end of military operations against Iran by March 7th?",
+        "price_at_signal": 0.0
+      }
+    ],
+    "pm_price_at_signal": 0.0,
+    "pm_verify_1h": null,
+    "pm_verify_3h": null,
+    "pm_verify_6h": null,
+    "pm_verify_12h": null,
+    "pm_verify_24h": null,
+    "pm_verify_48h": null,
+    "pm_correct_1h": null,
+    "pm_correct_3h": null,
+    "spy_at_signal": 653.18,
+    "es_at_signal": 6661.25,
+    "spy_change_at_signal": -0.674,
+    "spy_verify_1h": null,
+    "spy_verify_3h": null,
+    "spy_verify_12h": null,
+    "spy_verify_24h": null,
+    "spy_verify_48h": null,
+    "spy_correct_1h": null,
+    "spy_correct_3h": null,
+    "pm_vs_stock_divergence": null,
+    "divergence_detail": null,
+    "trump_coin_at_signal": 3.36,
+    "trump_coin_24h_change": 2.53,
     "trump_coin_verify_1h": null,
     "trump_coin_verify_3h": null,
     "trump_coin_verify_6h": null,
