@@ -1,12 +1,15 @@
 {
-  "date": "2026-03-28",
-  "generated_at": "2026-03-28T14:31:34Z",
-  "posts_today": 5,
+  "date": "2026-03-30",
+  "generated_at": "2026-03-30T15:01:39Z",
+  "posts_today": 16,
   "latest_post": {
-    "time": "2026-03-27T23:21",
-    "content_preview": "NY AG Letitia James referred again for criminal prosecution for alleged homeowner insurance fraud: h"
+    "time": "2026-03-30T12:27",
+    "content_preview": "The current war in Iran may prevent much greater bloodshed: https://thehill.com/opinion/national-sec"
   },
   "signals_detected": [
+    "TARIFF",
+    "DEAL",
+    "CHINA",
     "IRAN"
   ],
   "models_triggered": 0,
@@ -21,13 +24,13 @@
     "rate": 0.0
   },
   "sp500_latest": {
-    "date": "2026-03-27",
-    "close": 6368.85
+    "date": "2026-03-30",
+    "close": 6402.73
   },
   "summary": {
-    "en": "Trump Code Daily Report -- 2026-03-28\nPosts today: 5 | Models triggered: 0\nSignals: IRAN\nConsensus: 0 LONG vs 0 SHORT\nHistorical hit rate: 0.0% (0/0)\nLatest post: NY AG Letitia James referred again for criminal prosecution for alleged homeowner insurance fraud: h",
-    "zh": "川普密碼每日報告 -- 2026-03-28\n今日推文: 5 篇 | 觸發模型: 0 組\n偵測信號: 伊朗\n共識方向: 0 組看多 vs 0 組看空\n歷史命中率: 0.0% (0/0)\n最新推文: NY AG Letitia James referred again for criminal prosecution for alleged homeowner insurance fraud: h",
-    "ja": "トランプ・コード日次レポート -- 2026-03-28\n本日の投稿: 5件 | トリガーモデル: 0組\n検出シグナル: イラン\nコンセンサス: 0組ロング vs 0組ショート\n過去の的中率: 0.0% (0/0)\n最新投稿: NY AG Letitia James referred again for criminal prosecution for alleged homeowner insurance fraud: h"
+    "en": "Trump Code Daily Report -- 2026-03-30\nPosts today: 16 | Models triggered: 0\nSignals: TARIFF, DEAL, CHINA, IRAN\nConsensus: 0 LONG vs 0 SHORT\nHistorical hit rate: 0.0% (0/0)\nLatest post: The current war in Iran may prevent much greater bloodshed: https://thehill.com/opinion/national-sec",
+    "zh": "川普密碼每日報告 -- 2026-03-30\n今日推文: 16 篇 | 觸發模型: 0 組\n偵測信號: 關稅, Deal, 中國, 伊朗\n共識方向: 0 組看多 vs 0 組看空\n歷史命中率: 0.0% (0/0)\n最新推文: The current war in Iran may prevent much greater bloodshed: https://thehill.com/opinion/national-sec",
+    "ja": "トランプ・コード日次レポート -- 2026-03-30\n本日の投稿: 16件 | トリガーモデル: 0組\n検出シグナル: 関税, ディール, 中国, イラン\nコンセンサス: 0組ロング vs 0組ショート\n過去の的中率: 0.0% (0/0)\n最新投稿: The current war in Iran may prevent much greater bloodshed: https://thehill.com/opinion/national-sec"
   },
   "triggered_rules_sample": []
 }
