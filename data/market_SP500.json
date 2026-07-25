@@ -2654,9 +2654,9 @@
   },
   {
     "date": "2026-07-24",
-    "open": 7406.3,
-    "close": 7411.02,
-    "high": 7423.01,
-    "low": 7397.58
+    "open": NaN,
+    "close": NaN,
+    "high": NaN,
+    "low": NaN
   }
 ]
